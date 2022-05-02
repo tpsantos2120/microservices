@@ -1,15 +1,36 @@
 services:
-  postgres:
-    container_name: postgres
+  postgres-fraud:
+    container_name: postgres-fraud
     image: postgres
     environment:
       POSTGRES_USER: microservices
       POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
+      PGDATA: /data/postgres-fraud
+      PGPORT: "5430"
     volumes:
-      - postgres:/data/postgres
+      - postgres:/data/postgres-fraud
+    expose:
+    - "5430"
     ports:
-      - "5432:5432"
+    - "5430:5430"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  postgres-customer:
+    container_name: postgres-customer
+    image: postgres
+    environment:
+      POSTGRES_USER: microservices
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres-customer
+      PGPORT: "5431"
+    volumes:
+      - postgres:/data/postgres-customer
+    expose:
+    - "5431"
+    ports:
+    - "5431:5431"
     networks:
       - postgres
     restart: unless-stopped

@@ -3,10 +3,15 @@ package com.projectx.customer.service;
 import com.projectx.customer.controller.CustomerRegistrationRequest;
 import com.projectx.customer.model.Customer;
 import com.projectx.customer.repository.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService(CustomerRepository customerRepository) {
+@AllArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository customerRepository;
+
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
