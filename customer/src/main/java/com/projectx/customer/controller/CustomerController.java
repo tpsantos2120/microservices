@@ -18,7 +18,7 @@ public class CustomerController {
 
     @PostMapping
     public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
-        log.info("new customer registration {}", customerRegistrationRequest);
+        log.info("Started customer registration {}", customerRegistrationRequest);
         customerService.registerCustomer(customerRegistrationRequest);
 
     }
