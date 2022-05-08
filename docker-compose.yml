@@ -6,13 +6,13 @@ services:
       POSTGRES_USER: microservices
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres-fraud
-      PGPORT: "5430"
+      PGPORT: "5433"
     volumes:
       - postgres:/data/postgres-fraud
     expose:
-    - "5430"
+    - "5433"
     ports:
-    - "5430:5430"
+    - "5433:5433"
     networks:
       - postgres
     restart: unless-stopped
@@ -24,13 +24,13 @@ services:
       POSTGRES_USER: microservices
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres-customer
-      PGPORT: "5431"
+      PGPORT: "5434"
     volumes:
       - postgres:/data/postgres-customer
     expose:
-    - "5431"
+    - "5434"
     ports:
-    - "5431:5431"
+    - "5434:5434"
     networks:
       - postgres
     restart: unless-stopped
@@ -42,13 +42,13 @@ services:
       POSTGRES_USER: microservices
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres-notification
-      PGPORT: "5432"
+      PGPORT: "5435"
     volumes:
       - postgres:/data/postgres-notification
     expose:
-      - "5432"
+      - "5435"
     ports:
-      - "5432:5432"
+      - "5435:5435"
     networks:
       - postgres
     restart: unless-stopped
@@ -67,6 +67,12 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
 
 networks:
   postgres:
