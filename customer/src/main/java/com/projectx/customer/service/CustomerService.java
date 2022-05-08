@@ -1,5 +1,6 @@
 package com.projectx.customer.service;
 
+import com.projectx.amqp.component.RabbitMQMessageProducer;
 import com.projectx.clients.fraud.FraudCheckResponse;
 import com.projectx.clients.fraud.FraudClient;
 import com.projectx.clients.notification.NotificationClient;
@@ -19,7 +20,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
 
     public void registerCustomer(CustomerRegistrationRequest request) {
@@ -37,13 +38,17 @@ public class CustomerService {
             throw new IllegalStateException("Customer verified as fraudster");
         }
 
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to ProjectX...",
-                                customer.getFirstName())
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to ProjectX...",
+                        customer.getFirstName())
+        );
+
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
 
     }
