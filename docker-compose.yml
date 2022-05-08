@@ -35,6 +35,24 @@ services:
       - postgres
     restart: unless-stopped
 
+  postgres-notification:
+    container_name: postgres-notification
+    image: postgres
+    environment:
+      POSTGRES_USER: microservices
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres-notification
+      PGPORT: "5432"
+    volumes:
+      - postgres:/data/postgres-notification
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
