@@ -3,18 +3,17 @@ package com.projectx.customer.service;
 import com.projectx.amqp.component.RabbitMQMessageProducer;
 import com.projectx.clients.fraud.FraudCheckResponse;
 import com.projectx.clients.fraud.FraudClient;
-import com.projectx.clients.notification.NotificationClient;
 import com.projectx.clients.notification.NotificationRequest;
-import com.projectx.customer.controller.CustomerRegistrationRequest;
 import com.projectx.customer.model.Customer;
 import com.projectx.customer.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 
 @Service
+@Data
 @AllArgsConstructor
 public class CustomerService {
 
@@ -23,14 +22,9 @@ public class CustomerService {
     private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
 
-    public void registerCustomer(CustomerRegistrationRequest request) {
-        Customer customer = Customer.builder()
-                .firstName(request.firstName())
-                .lastName(request.lastName())
-                .email(request.email())
-                .build();
+    public Customer registerCustomer(Customer customer) {
 
-        customerRepository.saveAndFlush(customer);
+        Customer addedCustomer = customerRepository.saveAndFlush(customer);
 
         FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
@@ -50,6 +44,6 @@ public class CustomerService {
                 "internal.exchange",
                 "internal.notification.routing-key"
         );
-
+        return addedCustomer;
     }
 }

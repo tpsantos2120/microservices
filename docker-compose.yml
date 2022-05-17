@@ -8,7 +8,7 @@ services:
       PGDATA: /data/postgres-fraud
       PGPORT: "5433"
     volumes:
-      - postgres:/data/postgres-fraud
+      - ./fraud-data:/var/lib/postgresql/data/fraud
     expose:
     - "5433"
     ports:
@@ -26,7 +26,7 @@ services:
       PGDATA: /data/postgres-customer
       PGPORT: "5434"
     volumes:
-      - postgres:/data/postgres-customer
+      - ./customer-data:/var/lib/postgresql/data/customer
     expose:
     - "5434"
     ports:
@@ -44,7 +44,7 @@ services:
       PGDATA: /data/postgres-notification
       PGPORT: "5435"
     volumes:
-      - postgres:/data/postgres-notification
+      - ./notification-data:/var/lib/postgresql/data/notification
     expose:
       - "5435"
     ports:
@@ -85,5 +85,7 @@ networks:
     driver: bridge
 
 volumes:
-  postgres:
+  notification-data:
+  fraud-data:
+  customer-data:
   pgadmin:
