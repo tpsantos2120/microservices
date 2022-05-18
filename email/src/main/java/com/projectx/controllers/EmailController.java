@@ -4,6 +4,7 @@ import com.projectx.dto.EmailDTO;
 import com.projectx.model.EmailModel;
 import com.projectx.service.EmailService;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @Data
+@Slf4j
 public class EmailController {
 
     private final EmailService emailService;
@@ -27,9 +29,9 @@ public class EmailController {
 
     @PostMapping("api/v1/send-email")
     public ResponseEntity<EmailModel> sendEmail(@RequestBody @Valid EmailDTO emailDTO) {
+        log.info("Sending email...");
         EmailModel emailModel = new EmailModel();
         BeanUtils.copyProperties(emailDTO, emailModel);
-        emailService.sendEmail(emailModel);
-        return new ResponseEntity<>(emailModel, HttpStatus.CREATED);
+        return new ResponseEntity<>(emailService.sendEmail(emailModel), HttpStatus.CREATED);
     }
 }
