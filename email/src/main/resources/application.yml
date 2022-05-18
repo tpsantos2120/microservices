@@ -1,0 +1,29 @@
+server:
+  port: 8089
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: email
+
+  data:
+    mongodb:
+      authentication-database: admin
+      username: microservices
+      password: password
+      database: email-notification
+      port: 27017
+      host: localhost
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: thiagocroza472@gmail.com
+    password: guhkvntgaykixmwt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
