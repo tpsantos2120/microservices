@@ -6,7 +6,6 @@ import com.projectx.email.service.EmailService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +19,11 @@ public class EmailConsumer {
     public void consumer(EmailRequest emailRequest) {
         log.info("Consumed {} from queue", emailRequest);
         EmailModel emailModel = new EmailModel();
-        BeanUtils.copyProperties(emailRequest, emailModel);
+        emailModel.setEmailSubject("Nutrition App");
+        emailModel.setEmailFrom("thiagocroza472@gmail.com");
+        emailModel.setEmailTo(emailRequest.email());
+        emailModel.setText("Thank you for joining our app!");
+        emailModel.setOwnerRef(emailRequest.firstName() + " " + emailRequest.lastName());
         emailService.sendEmail(emailModel);
     }
 

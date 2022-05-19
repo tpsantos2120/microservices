@@ -1,6 +1,6 @@
 package com.projectx.email.controllers;
 
-import com.projectx.email.dto.EmailDTO;
+import com.projectx.clients.email.EmailRequest;
 import com.projectx.email.model.EmailModel;
 import com.projectx.email.service.EmailService;
 import lombok.Data;
@@ -26,10 +26,10 @@ public class EmailController {
     }
 
     @PostMapping("api/v1/send-email")
-    public void sendEmail(@RequestBody @Valid EmailDTO emailDTO) {
+    public void sendEmail(@RequestBody @Valid EmailRequest emailRequest) {
         log.info("Sending email...");
         EmailModel emailModel = new EmailModel();
-        BeanUtils.copyProperties(emailDTO, emailModel);
+        BeanUtils.copyProperties(emailRequest, emailModel);
         emailService.sendEmail(emailModel);
     }
 }

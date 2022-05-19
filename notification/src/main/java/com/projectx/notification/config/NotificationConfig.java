@@ -1,5 +1,6 @@
 package com.projectx.notification.config;
 
+import com.twilio.Twilio;
 import lombok.Getter;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -38,5 +39,10 @@ public class NotificationConfig {
                 .bind(notificationQueue())
                 .to(internalTopicExchange())
                 .with(this.internalNotificationRoutingKey);
+    }
+
+    @Bean
+    public void twilio() {
+        Twilio.init(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN"));
     }
 }

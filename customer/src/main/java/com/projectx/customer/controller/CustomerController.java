@@ -1,7 +1,7 @@
 package com.projectx.customer.controller;
 
 import com.projectx.customer.dto.CustomerDTO;
-import com.projectx.customer.model.Customer;
+import com.projectx.customer.model.CustomerModel;
 import com.projectx.customer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +21,12 @@ import javax.validation.Valid;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private CustomerService customerService;
 
     @PostMapping
     public ResponseEntity<Object> registerCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         log.info("Started customer registration {}", customerDTO);
-        Customer customerModel = new Customer();
+        CustomerModel customerModel = new CustomerModel();
         BeanUtils.copyProperties(customerDTO, customerModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.registerCustomer(customerModel));
     }

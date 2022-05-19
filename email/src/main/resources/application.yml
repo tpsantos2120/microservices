@@ -16,6 +16,7 @@ spring:
       port: 27017
       host: localhost
 
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -46,3 +47,12 @@ rabbitmq:
     email-notification: email.notification.queue
   routing-keys:
     internal-email-notification: internal.email.notification.routing-key
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG

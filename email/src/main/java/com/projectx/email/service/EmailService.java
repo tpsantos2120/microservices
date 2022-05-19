@@ -10,7 +10,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Service
@@ -27,7 +26,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(@Valid EmailModel emailModel) {
+    public void sendEmail(EmailModel emailModel) {
         emailModel.setSendDateEmail(LocalDateTime.now());
         try {
             SimpleMailMessage message = new SimpleMailMessage();

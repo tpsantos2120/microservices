@@ -1,6 +1,9 @@
 package com.projectx.notification.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,9 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class Notification {
 
     @Id
@@ -24,9 +25,8 @@ public class Notification {
             generator = "notification_id_sequence"
     )
     private Integer notificationId;
-    private Integer toCustomerId;
-    private String toCustomerEmail;
-    private String sender;
-    private String message;
+    private String phoneNumber;
+    private String firstName;
+    private String lastName;
     private LocalDateTime sentAt;
 }

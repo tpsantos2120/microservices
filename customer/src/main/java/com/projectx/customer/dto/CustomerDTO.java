@@ -15,4 +15,6 @@ public class CustomerDTO {
     @Email(message = "Email must be valid")
     @NotBlank
     private String email;
+    @NotBlank
+    private String phoneNumber;
 }

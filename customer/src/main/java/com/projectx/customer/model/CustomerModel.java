@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer {
+public class CustomerModel {
 
     @Id
     @SequenceGenerator(
@@ -27,5 +27,5 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
-
+    private String phoneNumber;
 }
