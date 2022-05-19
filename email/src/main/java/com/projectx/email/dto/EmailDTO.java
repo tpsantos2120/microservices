@@ -1,4 +1,4 @@
-package com.projectx.dto;
+package com.projectx.email.dto;
 
 import lombok.Data;
 

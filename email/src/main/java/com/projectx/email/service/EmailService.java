@@ -1,8 +1,8 @@
-package com.projectx.service;
+package com.projectx.email.service;
 
-import com.projectx.enums.EmailStatus;
-import com.projectx.model.EmailModel;
-import com.projectx.respository.EmailRepository;
+import com.projectx.email.enums.EmailStatus;
+import com.projectx.email.model.EmailModel;
+import com.projectx.email.respository.EmailRepository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Service
@@ -26,7 +27,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public EmailModel sendEmail(EmailModel emailModel) {
+    public void sendEmail(@Valid EmailModel emailModel) {
         emailModel.setSendDateEmail(LocalDateTime.now());
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -37,7 +38,7 @@ public class EmailService {
             mailSender.send(message);
             emailModel.setEmailStatus(EmailStatus.SENT);
             log.info("Email was sent successful");
-            return emailRepository.save(emailModel);
+            emailRepository.save(emailModel);
         } catch (Exception e) {
             emailModel.setEmailStatus(EmailStatus.ERROR);
             log.error("Email was not sent error: {}", e.getMessage());

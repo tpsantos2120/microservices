@@ -13,5 +13,6 @@ public class CustomerDTO {
     @NotBlank(message = "Last name is mandatory")
     private String lastName;
     @Email(message = "Email must be valid")
+    @NotBlank
     private String email;
 }

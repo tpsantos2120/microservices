@@ -1,6 +1,7 @@
 package com.projectx.customer.service;
 
 import com.projectx.amqp.component.RabbitMQMessageProducer;
+import com.projectx.clients.email.EmailRequest;
 import com.projectx.clients.fraud.FraudCheckResponse;
 import com.projectx.clients.fraud.FraudClient;
 import com.projectx.clients.notification.NotificationRequest;
@@ -44,6 +45,19 @@ public class CustomerService {
                 "internal.exchange",
                 "internal.notification.routing-key"
         );
+
+        EmailRequest emailRequest = new EmailRequest(
+                customer.getFirstName(),
+                "thiagocroza472@gmail.com",
+                customer.getEmail(),
+                customer.getFirstName(),
+                "Thank you for joining");
+
+        rabbitMQMessageProducer.sendEmail(
+                emailRequest,
+                "internal.exchange",
+                "internal.email.notification.routing-key");
+
         return addedCustomer;
     }
 }

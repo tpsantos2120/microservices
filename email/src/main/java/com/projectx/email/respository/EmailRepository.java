@@ -1,6 +1,6 @@
-package com.projectx.respository;
+package com.projectx.email.respository;
 
-import com.projectx.model.EmailModel;
+import com.projectx.email.model.EmailModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,14 +1,12 @@
-package com.projectx.controllers;
+package com.projectx.email.controllers;
 
-import com.projectx.dto.EmailDTO;
-import com.projectx.model.EmailModel;
-import com.projectx.service.EmailService;
+import com.projectx.email.dto.EmailDTO;
+import com.projectx.email.model.EmailModel;
+import com.projectx.email.service.EmailService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,10 +26,10 @@ public class EmailController {
     }
 
     @PostMapping("api/v1/send-email")
-    public ResponseEntity<EmailModel> sendEmail(@RequestBody @Valid EmailDTO emailDTO) {
+    public void sendEmail(@RequestBody @Valid EmailDTO emailDTO) {
         log.info("Sending email...");
         EmailModel emailModel = new EmailModel();
         BeanUtils.copyProperties(emailDTO, emailModel);
-        return new ResponseEntity<>(emailService.sendEmail(emailModel), HttpStatus.CREATED);
+        emailService.sendEmail(emailModel);
     }
 }

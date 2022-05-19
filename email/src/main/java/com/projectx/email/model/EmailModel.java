@@ -1,6 +1,6 @@
-package com.projectx.model;
+package com.projectx.email.model;
 
-import com.projectx.enums.EmailStatus;
+import com.projectx.email.enums.EmailStatus;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;

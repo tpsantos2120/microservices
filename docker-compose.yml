@@ -84,6 +84,7 @@ services:
   mongo-express:
     container_name: mongo-express
     image: mongo-express
+    restart: always
     ports:
       - 8888:8081
     environment:
@@ -96,10 +97,13 @@ services:
       - mongo
     networks:
       - mongo-network
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo
     container_name: mongo-db
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: microservices
       MONGO_INITDB_ROOT_PASSWORD: password

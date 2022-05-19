@@ -1,4 +1,4 @@
-package com.projectx.enums;
+package com.projectx.email.enums;
 
 public enum EmailStatus {
     SENT,
