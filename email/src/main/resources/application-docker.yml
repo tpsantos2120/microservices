@@ -1,0 +1,50 @@
+server:
+  port: 8089
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: email
+
+  data:
+    mongodb:
+      authentication-database: admin
+      username: microservices
+      password: password
+      database: email-notification
+      port: 27017
+      host: mongo
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: thiagocroza472@gmail.com
+    password: guhkvntgaykixmwt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  zipkin:
+    base-url: http://zipkin:9411
+
+  rabbitmq:
+    addresses: rabbitmq:5672
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    email-notification: email.notification.queue
+  routing-keys:
+    internal-email-notification: internal.email.notification.routing-key
