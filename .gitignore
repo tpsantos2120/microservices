@@ -1,4 +1,5 @@
 */target/*
+/target/
 /amqp/target/
 /apigw/target/
 /clients/target/
