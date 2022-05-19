@@ -1,9 +1,10 @@
 */target/*
 /target/
-/amqp/target/
-/apigw/target/
-/clients/target/
-/customerModel/target/
-/eureka-server/target/
-/fraud/target/
+
 /notification/target/
+/fraud/target/
+/eureka-server/target/
+/email/target/
+/customer/target/
+/clients/target/
+/apigw/target/
