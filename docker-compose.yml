@@ -180,6 +180,8 @@ services:
       - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - TWILIO_ACCOUNT_SID=ACc9b9292ab5807f2f9c5c705e9d673055
+      - TWILIO_AUTH_TOKEN=6ac816ba7a73cd7cbda9b8d981c3e61d
     networks:
       - spring
       - postgres
